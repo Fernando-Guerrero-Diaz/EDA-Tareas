@@ -21,9 +21,19 @@ int main() {
   
   char Input[30];
   while (true){
-    printf("Opciones de menu:\n MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos MostrarTodoItem Exit\n");
+    printf("Opciones de menu:\nExportarItems MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos MostrarTodoItem Exit\n");
     gets(Input);
     fflush(stdin);
+        if (strcmp(Input, "ExportarItems")==0){
+      printf("Ingrese nombre de archivo destino (sin .csv)\n");
+      gets(Input);
+      fflush(stdin);
+      strcat(Input,".csv");
+      printf("Exportando a %s...\n",Input);
+      ExportarItems(Input, ListaPersonajes);
+      printf("\n");
+      continue;
+        }
     if (strcmp(Input, "MostrarConsumibles")==0){
       printf("Ingrese numero de personaje: ");
       gets(Input);

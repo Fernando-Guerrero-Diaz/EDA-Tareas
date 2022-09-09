@@ -326,7 +326,6 @@ void EliminarDeTodos(char* nombreItem, List* ListaPersonajes){
 
 void MostrarTodoItem(List* ListaPersonajes){
   Personaje* personajeX = firstList(ListaPersonajes);
-  bool done = false;
   if(personajeX == NULL){
     printf("Lista de personajes vacia\n");
   }
@@ -345,4 +344,29 @@ void MostrarTodoItem(List* ListaPersonajes){
       }
 		personajeX =nextList(ListaPersonajes);
 	}
+}
+void ExportarItems(char* filename,List* ListaPersonajes){
+	FILE *fpt; fpt = fopen(filename, "w+");
+  fprintf(fpt,"TIPO,NOMBRE,NIVEL O CANTIDAD,PERSONAJE\n");
+	Personaje* personajeX = firstList(ListaPersonajes);
+	if(personajeX == NULL){
+		printf("Lista de personajes vacia\n");
+	}
+	while (personajeX){
+		List* ListaC = personajeX->ListaConsumibles;
+		Item* itemX =firstList(ListaC);
+		while(itemX){
+      			fprintf(fpt,"Consumible,%s,%d,%s\n",itemX->nombre,  itemX->nivelOcantidad, personajeX->nombre);
+			itemX = nextList(ListaC);
+      		}
+    		List* ListaE = personajeX->ListaEquipables;
+		itemX =firstList(ListaE);
+		while(itemX){
+      			fprintf(fpt,"Equipable,%s,%d,%s\n",itemX->nombre, itemX->nivelOcantidad, personajeX->nombre);
+			itemX = nextList(ListaE);
+      		}
+		personajeX =nextList(ListaPersonajes);
+	}
+  
+	fclose(fpt);
 }
