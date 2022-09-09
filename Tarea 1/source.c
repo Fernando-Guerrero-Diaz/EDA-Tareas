@@ -32,6 +32,7 @@ Personaje* CreatePersonaje(char* nombre){
 }
 
 void AgregarItem(char* tipo, char* nombre_item, int nivel_o_cantidad, char* personaje, List* ListaPersonajes){
+  //printf("Agregando %s a %s, tipo %s\n",nombre_item,personaje,tipo);
 	Personaje* personajeX = firstList(ListaPersonajes);
 	while (personajeX){
     //printf("\n");
@@ -46,29 +47,34 @@ void AgregarItem(char* tipo, char* nombre_item, int nivel_o_cantidad, char* pers
 			List* ListaC = personajeX->ListaConsumibles;
 			Item* itemX =firstList(ListaC);
 			while(itemX){
+        //printf("%s tiene %s\n", personajeX->nombre, itemX->nombre);
 				if (strcmp(itemX->nombre, nombre_item)==0){
 					itemX->nivelOcantidad += nivel_o_cantidad;
 					break;}
 				itemX = nextList(ListaC);
-			if (itemX==NULL){
-        itemX = CreateItem(nombre_item, nivel_o_cantidad);
-				pushBack(ListaC,itemX);
-			  }
       }
+			if (itemX==NULL){
+        //printf("%s no tiene %s, creando...\n", personajeX->nombre,nombre_item);
+        itemX = CreateItem(nombre_item, nivel_o_cantidad);
+			
+      	pushBack(ListaC,itemX);
+			  }
     }
+    
     else if (strcmp(tipo, "Equipable") == 0){
 			List* ListaE = personajeX->ListaEquipables;
       Item* itemX =CreateItem(nombre_item, nivel_o_cantidad);
 			pushBack(ListaE,itemX);
+      //printf("Item equipable agregado.\n");
 		}
-   
-  }
+
   
-  else if (personajeX==NULL){
+    }
+   if (personajeX==NULL){
     //printf("no existe\n");
     
     personajeX= CreatePersonaje(personaje);
-    //printf("crea %s\n",personajeX->nombre);
+   // printf("crea %s\n",personajeX->nombre);
     
     if (strcmp(tipo, "Consumible") == 0){
       Item* itemX = CreateItem(nombre_item, nivel_o_cantidad);
@@ -80,8 +86,8 @@ void AgregarItem(char* tipo, char* nombre_item, int nivel_o_cantidad, char* pers
       }
     pushFront(ListaPersonajes, personajeX);
   }
-
 }
+
 
 const char *get_csv_field (char * tmp, int k) {
     int open_mark = 0;
@@ -152,14 +158,15 @@ void ReadItemList( List* ListaPersonajes){
 
        // dato = strtok(linea, ",");
 
-        /*char* Tipo= strtok(linea, ",");
-        //printf("%s\n",Tipo);
-        char* nombre_item = strtok(NULL, ",");
-        printf("%s\n",nombre_item);
-        int nivel_cantidad= atoi(strtok(NULL, ","));
-        printf("%d\n",nivel_cantidad);
-        char* personaje= strtok(NULL, ",");*/
-      //printf("%s\n", personaje);
+        //char* Tipo= strtok(linea, ",");
+      //printf("Tipo: %s\n",tipo);
+        //char* nombre_item = strtok(NULL, ",");
+      //printf("Nombre item: %s\n",nombre);
+       // int nivel_cantidad= atoi(strtok(NULL, ","));
+      //printf("Nivel o cantidad: %d\n",cantidad);
+       // char* personaje= strtok(NULL, ",");*/
+      //printf("Nombre de Personaje:%s\n", personaje);
+      //printf("\n");
       AgregarItem(tipo, nombre, cantidad, personaje, ListaPersonajes);
         /*
         while(dato != NULL)
