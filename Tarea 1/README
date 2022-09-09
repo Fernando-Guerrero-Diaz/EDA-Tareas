@@ -1,5 +1,5 @@
 Equipo: NonBinary Tree
-Integrantes: Fernando Guerrero, 
+Integrantes: Fernando Guerrero, Valentina Vidal, Hector Aguilera
 
 para compilar:
 -escribir en terminal: gcc main.c list.c source.c -o tarea1
@@ -9,3 +9,8 @@ para ejecutar:
 Al momento de ingresar nombre de personaje, ingrese su número. 
 (Ej: Para ver consumibles de personaje 1 ingrese 'MostrarConsumibles', aprete Enter, ingrese '1', y aprete Enter.) 
 Todas las funciones han sido implementadas.
+
+puntos de premio/castigo:
+Fernando Guerrero: +7
+Valentina Vidal: -2
+Hector Aguilera: -5
