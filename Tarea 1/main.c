@@ -11,12 +11,33 @@ int main() {
   //printf("List created\n");
   ReadItemList(ListaPersonajes);
   
-  printf("Items consumibles de Personaje 5\n");
-  MostrarConsumibles("Personaje 5", ListaPersonajes);
+  printf("Items consumibles de Personaje 1\n");
+  MostrarConsumibles("Personaje 1", ListaPersonajes);
   
   printf("\n");
   printf("Items equipables de Personaje 1\n");
   MostrarEquipables("Personaje 1", ListaPersonajes);
+  printf("\n");
+    printf("Items consumibles de Personaje 2\n");
+  MostrarConsumibles("Personaje 2", ListaPersonajes);
+  
+  printf("\n");
+  printf("Items equipables de Personaje 2\n");
+  MostrarEquipables("Personaje 2", ListaPersonajes);
+  printf("\n");
+    printf("Items consumibles de Personaje 3\n");
+  MostrarConsumibles("Personaje 3", ListaPersonajes);
+  
+  printf("\n");
+  printf("Items equipables de Personaje 3\n");
+  MostrarEquipables("Personaje 3", ListaPersonajes);
+  printf("\n");
+    printf("Items consumibles de Personaje 4\n");
+  MostrarConsumibles("Personaje 4", ListaPersonajes);
+  
+  printf("\n");
+  printf("Items equipables de Personaje 4\n");
+  MostrarEquipables("Personaje 4", ListaPersonajes);
   
   char Input[30];
   while (true){

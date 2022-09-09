@@ -35,7 +35,8 @@ void AgregarItem(char* tipo, char* nombre_item, int nivel_o_cantidad, char* pers
 	Personaje* personajeX = firstList(ListaPersonajes);
 	while (personajeX){
     //printf("\n");
-		if (strcmp(personajeX->nombre,personaje)==0) break;
+		if (strcmp(personajeX->nombre,personaje)==0){ 
+      break;}
 		personajeX =nextList(ListaPersonajes);
     //printf("Next\n");
 		}
@@ -195,12 +196,12 @@ void ReadItemList( List* ListaPersonajes){
   */
 }
 void MostrarConsumibles(char* personaje, List* ListaPersonajes){
-  printf("%s\n", personaje);
+
   Personaje* personajeX = firstList(ListaPersonajes);
 	while (personajeX){
-    printf("%s\n",personajeX->nombre);
+
 		int i = strcmp(personajeX->nombre,personaje);
-    printf("%d\n",i);
+
     if (i == 0){ 
       break;
       }
@@ -233,7 +234,7 @@ void MostrarEquipables(char* personaje, List* ListaPersonajes){
     	List* ListaE = personajeX->ListaEquipables;
 			Item* itemX =firstList(ListaE);
       if (itemX==NULL){
-        printf("Personaje no tiene items equipables");
+        printf("Personaje no tiene items equipables\n");
       }
 			while(itemX){
 				printf("%s, nivel %d\n", itemX->nombre, itemX->nivelOcantidad);
