@@ -21,7 +21,7 @@ int main() {
   
   char Input[30];
   while (true){
-    printf("Opciones de menu:\nExportarItems MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos MostrarTodoItem Exit\n");
+    printf("Opciones de menu:\nExportarItems MostrarConsumibles AgregarItem MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos MostrarTodoItem Exit\n");
     gets(Input);
     fflush(stdin);
         if (strcmp(Input, "ExportarItems")==0){
@@ -34,6 +34,28 @@ int main() {
       printf("\n");
       continue;
         }
+      if (strcmp(Input, "AgregarItem")==0){
+      printf("Ingrese numero de personaje: ");
+      gets(Input);
+      fflush(stdin);
+      char personaje[30];
+      strcpy(personaje,"Personaje ");
+      strcat(personaje,Input);
+      printf("Ingrese nombre de Item a agregar\n");
+      char item[30];
+      gets(item);
+      fflush(stdin);
+      char tipo[30];
+      printf("Ingrese tipo de Item (Consumible o Equipable)\n");
+      gets(tipo);
+      fflush(stdin);
+      printf("Ingrese cantidad o nivel de Item\n");
+      gets(Input);
+      fflush(stdin);
+      int cantidad = atoi(Input);
+      AgregarItem(tipo,item,cantidad,personaje,ListaPersonajes);
+      continue;
+      }
     if (strcmp(Input, "MostrarConsumibles")==0){
       printf("Ingrese numero de personaje: ");
       gets(Input);
