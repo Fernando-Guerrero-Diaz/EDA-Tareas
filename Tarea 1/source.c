@@ -323,3 +323,26 @@ void EliminarDeTodos(char* nombreItem, List* ListaPersonajes){
     printf("Ningun personaje tiene %s para eliminar", nombreItem);
   }
 }
+
+void MostrarTodoItem(List* ListaPersonajes){
+  Personaje* personajeX = firstList(ListaPersonajes);
+  bool done = false;
+  if(personajeX == NULL){
+    printf("Lista de personajes vacia\n");
+  }
+	while (personajeX){
+    List* ListaC = personajeX->ListaConsumibles;
+		Item* itemX =firstList(ListaC);
+		while(itemX){
+      printf("%s, cantidad %d\n",itemX->nombre,itemX->nivelOcantidad);
+			itemX = nextList(ListaC);
+      }
+    List* ListaE = personajeX->ListaEquipables;
+		itemX =firstList(ListaE);
+		while(itemX){
+      printf("%s, nivel %d\n",itemX->nombre,itemX->nivelOcantidad);
+			itemX = nextList(ListaE);
+      }
+		personajeX =nextList(ListaPersonajes);
+	}
+}

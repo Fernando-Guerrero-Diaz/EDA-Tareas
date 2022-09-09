@@ -21,7 +21,7 @@ int main() {
   
   char Input[30];
   while (true){
-    printf("Opciones de menu: MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos Exit\n");
+    printf("Opciones de menu:\n MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos MostrarTodoItem Exit\n");
     gets(Input);
     fflush(stdin);
     if (strcmp(Input, "MostrarConsumibles")==0){
@@ -78,6 +78,10 @@ int main() {
       }
     if (strcmp(Input, "MostrarPersonajes")==0){
       MostrarPersonajes(ListaPersonajes);
+      continue;
+    }
+    if (strcmp(Input, "MostrarTodoItem")==0){
+      MostrarTodoItem(ListaPersonajes);
       continue;
     }
     if (strcmp(Input, "Exit")==0){
