@@ -270,17 +270,17 @@ void EliminarDePersonaje(char* personaje, char* nombreItem, int cantidad, List* 
       List* ListaE = personajeX->ListaEquipables;
 			itemX =firstList(ListaE);
 			while(itemX){
-				if (strcmp(itemX->nombre, nombreItem)==0){
+
+				if (strcmp(itemX->nombre, nombreItem)==0 && cantidad >0){
             popCurrent(ListaE);
-          
+            cantidad--;
             printf("%s eliminado de %s\n",nombreItem, personajeX->nombre);
             done = true;
-            break;
 					  }
-				itemX = nextList(ListaC);
+				itemX = nextList(ListaE);
       }
       if(!done){
-        printf("No se encontró %s en %s\n", nombreItem,personajeX->nombre);
+        printf("No se encontro %s en %s\n", nombreItem,personajeX->nombre);
       }
     }
   
