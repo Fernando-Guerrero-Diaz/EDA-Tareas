@@ -244,3 +244,47 @@ int ContarEquipables(Personaje* personaje){
   }
   return c;
 }
+void EliminarDePersonaje(char* personaje, char* nombreItem, int cantidad, List* ListaPersonajes){
+  Personaje* personajeX = firstList(ListaPersonajes);
+	while (personajeX){
+		int i = strcmp(personajeX->nombre,personaje);
+    if (i == 0) break;
+		personajeX =nextList(ListaPersonajes);
+		}
+  bool done = false;
+	if(personajeX ){
+
+    	List* ListaC = personajeX->ListaConsumibles;
+			Item* itemX =firstList(ListaC);
+			while(itemX){
+				if (strcmp(itemX->nombre, nombreItem)==0){
+					itemX->nivelOcantidad -= cantidad;
+          if (itemX->nivelOcantidad <= 0){
+            popCurrent(ListaC);
+          }
+          printf("%s eliminado de %s\n",nombreItem, personajeX->nombre);
+          done = true;
+					break;}
+				itemX = nextList(ListaC);
+      }
+      List* ListaE = personajeX->ListaEquipables;
+			itemX =firstList(ListaE);
+			while(itemX){
+				if (strcmp(itemX->nombre, nombreItem)==0){
+            popCurrent(ListaE);
+          
+            printf("%s eliminado de %s\n",nombreItem, personajeX->nombre);
+            done = true;
+            break;
+					  }
+				itemX = nextList(ListaC);
+      }
+      if(!done){
+        printf("No se encontró %s en %s\n", nombreItem,personajeX->nombre);
+      }
+    }
+  
+  else {
+    printf("Personaje no existe\n");
+  }  
+}

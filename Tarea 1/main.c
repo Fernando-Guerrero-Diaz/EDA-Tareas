@@ -37,7 +37,7 @@ int main() {
       continue;
     }
         if (strcmp(Input, "MostrarEquipables")==0){
-      printf("Ingrese número de personaje: ");
+      printf("Ingrese numero de personaje: ");
       gets(Input);
       fflush(stdin);
       char name[30];
@@ -49,16 +49,21 @@ int main() {
       continue;
     }
       if (strcmp(Input, "EliminarDePersonaje")==0){
-      printf("Ingrese número de personaje: ");
+      printf("Ingrese numero de personaje: ");
       gets(Input);
       fflush(stdin);
       char name[30];
       strcpy(name,"Personaje ");
       strcat(name,Input);
-      printf("Ingrese Item a eliminar de%s\n",name);
+      printf("Ingrese Item a eliminar de %s\n",name);
+      char item[30];
+      gets(item);
+      fflush(stdin);
+      printf("Ingrese cantidad a eliminar\n");
       gets(Input);
       fflush(stdin);
-      printf("ELiminar %s?",Input);
+      int cantidad = atoi(Input);
+      EliminarDePersonaje(name,item,cantidad,ListaPersonajes);
       printf("\n");
       continue;
       }
