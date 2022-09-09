@@ -14,5 +14,5 @@ void MostrarPersonajes(List* ListaPersonajes);
 int ContarEquipables(Personaje* personaje);
 int ContarConsumibles(Personaje* personaje);
 void EliminarDePersonaje(char* personaje, char* nombreItem, int cantidad, List* ListaPersonajes);
-
+void EliminarDeTodos(char* nombreItem, List* ListaPersonajes);
 #endif

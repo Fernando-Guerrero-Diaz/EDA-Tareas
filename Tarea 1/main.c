@@ -21,7 +21,7 @@ int main() {
   
   char Input[30];
   while (true){
-    printf("Opciones de menu: MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje Exit\n");
+    printf("Opciones de menu: MostrarConsumibles MostrarEquipables MostrarPersonajes EliminarDePersonaje EliminarDeTodos Exit\n");
     gets(Input);
     fflush(stdin);
     if (strcmp(Input, "MostrarConsumibles")==0){
@@ -64,6 +64,15 @@ int main() {
       fflush(stdin);
       int cantidad = atoi(Input);
       EliminarDePersonaje(name,item,cantidad,ListaPersonajes);
+      printf("\n");
+      continue;
+      }
+      if (strcmp(Input, "EliminarDeTodos")==0){
+      printf("Ingrese Item a eliminar de todos\n");
+      char item[30];
+      gets(item);
+      fflush(stdin);
+      EliminarDeTodos(item,ListaPersonajes);
       printf("\n");
       continue;
       }

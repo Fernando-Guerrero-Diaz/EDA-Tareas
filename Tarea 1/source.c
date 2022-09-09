@@ -288,3 +288,38 @@ void EliminarDePersonaje(char* personaje, char* nombreItem, int cantidad, List* 
     printf("Personaje no existe\n");
   }  
 }
+void EliminarDeTodos(char* nombreItem, List* ListaPersonajes){
+  Personaje* personajeX = firstList(ListaPersonajes);
+  bool done = false;
+  if(personajeX == NULL){
+    printf("Lista de personajes vacia\n");
+  }
+	while (personajeX){
+    List* ListaC = personajeX->ListaConsumibles;
+		Item* itemX =firstList(ListaC);
+		while(itemX){
+			if (strcmp(itemX->nombre, nombreItem)==0){
+        done = true;
+        popCurrent(ListaC);
+        }	
+			itemX = nextList(ListaC);
+      }
+    List* ListaE = personajeX->ListaEquipables;
+		itemX =firstList(ListaE);
+		while(itemX){
+			if (strcmp(itemX->nombre, nombreItem)==0){
+          popCurrent(ListaE);
+          done = true;
+					}
+			itemX = nextList(ListaE);
+      }
+		personajeX =nextList(ListaPersonajes);
+		}
+
+  if(done){
+    printf("%s eliminado de todos los personajes",nombreItem);
+  }
+  else{
+    printf("Ningun personaje tiene %s para eliminar", nombreItem);
+  }
+}
