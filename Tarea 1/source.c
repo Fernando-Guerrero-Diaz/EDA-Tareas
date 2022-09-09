@@ -153,54 +153,12 @@ void ReadItemList( List* ListaPersonajes){
         cantidad = atoi(get_csv_field(linea, 2));
         strcpy(personaje, get_csv_field(linea, 3));
         
-        //fgets(linea, MAXCHAR, fp);
-        //printf("Linea: %s", linea);
 
-       // dato = strtok(linea, ",");
-
-        //char* Tipo= strtok(linea, ",");
-      //printf("Tipo: %s\n",tipo);
-        //char* nombre_item = strtok(NULL, ",");
-      //printf("Nombre item: %s\n",nombre);
-       // int nivel_cantidad= atoi(strtok(NULL, ","));
-      //printf("Nivel o cantidad: %d\n",cantidad);
-       // char* personaje= strtok(NULL, ",");*/
-      //printf("Nombre de Personaje:%s\n", personaje);
-      //printf("\n");
       AgregarItem(tipo, nombre, cantidad, personaje, ListaPersonajes);
-        /*
-        while(dato != NULL)
-        {
 
-            //printf("Dato: %s\n", dato);
-            printf("%s\n", dato);
-            dato = strtok(NULL, ",");
-        }
-      */
 
     }
-  /*
-    while (fgets (linea, 1023, fp) != NULL) { // Se lee la linea
-      
-      char* Tipo;
-      char* nombre_item;
-      int nivel_cantidad;
-      char* personaje;
-      
-    
-    
-      printf("%s",Tipo);
-
-      printf("%s",nombre_item);
-
-
-      printf("%s",personaje);
-    
-      //AgregarItem(Tipo, nombre_item, nivel_cantidad, personaje, ListaPersonajes);
-        k++; if(k==10) break;
-      
-    }
-  */
+  
 }
 void MostrarConsumibles(char* personaje, List* ListaPersonajes){
 
@@ -250,7 +208,39 @@ void MostrarEquipables(char* personaje, List* ListaPersonajes){
   }
   else {
     printf("Personaje no existe\n");
+  }  
+}
+
+void MostrarPersonajes(List* ListaPersonajes){
+  Personaje* personajeX = firstList(ListaPersonajes);
+	while (personajeX){
+    int c = ContarConsumibles(personajeX);
+    int e = ContarEquipables(personajeX);
+    printf("%s\n", personajeX->nombre);
+    printf("%d consumibles, %d equipables\n",c,e);
+    printf("\n");
+    personajeX = nextList(ListaPersonajes);
   }
-  
 }
   
+int ContarConsumibles(Personaje* personaje){
+  int c = 0;
+  List* ListaC = personaje->ListaConsumibles;
+  Item* ItemX = firstList(ListaC);
+  while(ItemX){
+    c += ItemX->nivelOcantidad;
+    ItemX = nextList(ListaC);
+  }
+  return c;
+}
+
+int ContarEquipables(Personaje* personaje){
+  int c = 0;
+  List* ListaE = personaje->ListaEquipables;
+  Item* ItemX = firstList(ListaE);
+  while(ItemX){
+    c += 1;
+    ItemX = nextList(ListaE);
+  }
+  return c;
+}

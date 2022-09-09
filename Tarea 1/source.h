@@ -10,5 +10,7 @@ void AgregarItem(char* tipo, char*nombre_item, int nivel_o_cantidad, char* perso
 void ReadItemList( List* ListaPersonajes);
 void MostrarConsumibles(char* personaje, List* ListaPersonajes);
 void MostrarEquipables(char* personaje, List* ListaPersonajes);
-
+void MostrarPersonajes(List* ListaPersonajes);
+int ContarEquipables(Personaje* personaje);
+int ContarConsumibles(Personaje* personaje);
 #endif
