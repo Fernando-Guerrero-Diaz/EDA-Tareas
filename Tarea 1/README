@@ -1,0 +1,11 @@
+Equipo: NonBinary Tree
+Integrantes: Fernando Guerrero, 
+
+para compilar:
+-escribir en terminal: gcc main.c list.c source.c -o tarea1
+para ejecutar:
+-abrir el .exe resultante
+-Escribir el comando de menú que se quiere usar. (Escriba el comando exactamente como sale, con mayúsculas incluídas)
+Al momento de ingresar nombre de personaje, ingrese su número. 
+(Ej: Para ver consumibles de personaje 1 ingrese 'MostrarConsumibles', aprete Enter, ingrese '1', y aprete Enter.) 
+Todas las funciones han sido implementadas.
