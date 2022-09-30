@@ -17,13 +17,13 @@ struct HashMap {
     long (*hash) (void* key,long capacity);
 };
 
-Pair * createPair( void * key,  void * value) {
+Pair * createPair(char * key,  void * value) {
     Pair * new = (Pair *)malloc(sizeof(Pair));
     new->key = key;
     new->value = value;
     return new;
 }
-void PushToListInMap(HashMap* ListMap, void* key, void* data){
+void PushToListInMap(HashMap* ListMap, char* key, void* data){
     Pair* searchResult = searchMap(ListMap,key);
     if(searchResult){
         List* lista= searchResult->value;
@@ -59,7 +59,7 @@ int is_equal(void* key1, void* key2){
 }
 
 
-void insertMap(HashMap * map, void * key, void * value) {
+void insertMap(HashMap * map, char * key, void * value) {
   long keyhash = map->hash(key,map->capacity);
   while(1){
   if(map->buckets[keyhash]==NULL || map->buckets[keyhash]->key==NULL){
@@ -104,7 +104,7 @@ HashMap * createMap(long capacity, int hash_style) {
     return map;
 }
 
-void eraseMap(HashMap * map,  void * key) {    
+void eraseMap(HashMap * map,  char * key) {    
   Pair* eliminarpair = searchMap(map,key);
   if (eliminarpair !=NULL){
     eliminarpair->key = NULL;
@@ -113,7 +113,7 @@ void eraseMap(HashMap * map,  void * key) {
 
 }
 
-Pair * searchMap(HashMap * map,  void * key) {   
+Pair * searchMap(HashMap * map,  char * key) {   
   long keyhash = map->hash(key,map->capacity);
   int count=0;
   while(1){

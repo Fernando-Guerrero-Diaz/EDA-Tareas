@@ -14,9 +14,9 @@ int main(){
     HashMap* PropiedadesXCapacidad = createMap(20,0);
     //AddToMaps(Ids,Propiedades,PropiedadesXCiudad,PropiedadesXTipo,PropiedadesXCapacidad);
 
-    int* aux = firstList(Ids);
-    printf("%d\n",*aux);
-    /*
+    char aux[20];
+    strcpy(aux,"1");
+    
     Pair* pair = searchMap(Propiedades,aux);
     Propiedad* prop = pair->value;
     MostrarPropiedad(prop);

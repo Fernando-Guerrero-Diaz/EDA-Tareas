@@ -8,23 +8,23 @@
 #define MAXCHAR 1023
 
 typedef struct Propiedad{
-    int id;
+    char id[20];
     char ciudad[80];
     char direccion[80];
     char tipo[80];
-    int capacidad;
-    int valor;
+    char capacidad[20];
+    char valor[20];
     bool favorito;
 }Propiedad;
 
-Propiedad* CreatePropiedad(int id, char* ciudad, char* direccion, char* tipo, int capacidad, int valor){
+Propiedad* CreatePropiedad(char* id, char* ciudad, char* direccion, char* tipo, char* capacidad, char* valor){
     Propiedad* new = (Propiedad*)malloc(sizeof(Propiedad));
-    new->id = id;
+    strcpy(new->id,id);
     strcpy(new->ciudad,ciudad);
     strcpy(new->direccion,direccion);
     strcpy(new->tipo,tipo);
-    new->capacidad=capacidad;
-    new->valor=valor;
+    strcpy(new->capacidad,capacidad);
+    strcpy(new->valor,valor);
     new->favorito = false;
     return new;
 }
@@ -70,29 +70,27 @@ void ReadPropiedades(List* IdsPropiedades,HashMap* Propiedades){
 
     FILE *fp = fopen ("propiedades.csv", "r");
     char linea[1024];
-    int id;
     char ciudad[80];
     char direccion[80];
     char tipo[80];
-    int capacidad;
-    int valor;
-    char idKey[20];
+    char capacidad[20];
+    char valor[20];
+    char id[20];
     char* dato;
   
     dato = fgets(linea, 1023, fp);
     while (fgets(linea, MAXCHAR, fp) != NULL)
     {   
-        strcpy(idKey,(char*)get_csv_field(linea,0));
-        id = atoi(idKey);
+        strcpy(id,(char*)get_csv_field(linea,0));
         strcpy(ciudad,(char *)get_csv_field(linea, 1));
         strcpy(direccion, get_csv_field(linea, 2));
         strcpy(tipo, get_csv_field(linea, 3));
-        capacidad = atoi(get_csv_field(linea, 4));
-        valor = atoi(get_csv_field(linea, 5));
+        strcpy(capacidad, get_csv_field(linea, 4));
+        strcpy(valor, get_csv_field(linea, 5));
         Propiedad* new = CreatePropiedad(id,ciudad,direccion,tipo,capacidad,valor);
         MostrarPropiedad(new);
-        insertMap(Propiedades, idKey, new);
-        pushBack(IdsPropiedades,idKey);
+        insertMap(Propiedades, id, new);
+        pushBack(IdsPropiedades,id);
 
     }
 }
@@ -105,15 +103,15 @@ void AddToMaps(List* Ids, HashMap* Propiedades, HashMap* XCiudad, HashMap* XTipo
         PushToListInMap(XCiudad,cityKey,prop);
         char* TipoKey = prop->tipo;
         PushToListInMap(XTipo,TipoKey,prop);
-        int* CapaKey = &(prop->capacidad);
+        char* CapaKey = prop->capacidad;
         PushToListInMap(XCapacidad,CapaKey,prop);
     }
 }
 void MostrarPropiedad(Propiedad* prop){
-    printf("id: %d\n",prop->id);
+    printf("id: %s\n",prop->id);
     printf("Ciudad: %s\n",prop->ciudad);
     printf("Direccion: %s\n", prop->direccion);
-    printf("Capacidad: %d\n", prop->capacidad);
-    printf("Valor: %d\n", prop->valor);
+    printf("Capacidad: %s\n", prop->capacidad);
+    printf("Valor: %s\n", prop->valor);
     printf("\n");
 }
