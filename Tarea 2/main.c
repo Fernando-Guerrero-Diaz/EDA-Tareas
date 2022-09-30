@@ -16,7 +16,7 @@ int main(){
     HashMap* PropiedadesXCiudad = createMap(20,0);
     HashMap* PropiedadesXTipo = createMap(20,0);
     HashMap* PropiedadesXCapacidad = createMap(20,0);
-    AddToMaps(Ids,Propiedades,PropiedadesXCiudad,PropiedadesXTipo,PropiedadesXCapacidad);
+    //AddToMaps(Ids,Propiedades,PropiedadesXCiudad,PropiedadesXTipo,PropiedadesXCapacidad);
 
     IdData* aux = firstList(Ids);
     printf("%s\n",aux->id);
