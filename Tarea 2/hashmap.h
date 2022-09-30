@@ -10,7 +10,7 @@ typedef struct Pair {
      void * value;
 } Pair;
 
-HashMap * createMap(long capacity, int hash_style);
+HashMap * createMap(long capacity);
 
 IdData* createId(char* id);
 

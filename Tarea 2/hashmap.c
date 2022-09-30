@@ -14,7 +14,6 @@ struct HashMap {
     long size; //cantidad de datos/pairs en la tabla
     long capacity; //capacidad de la tabla
     long current; //indice del ultimo dato accedido
-    long (*hash) (void* key,long capacity);
 };
 
 Pair * createPair(char * key,  void * value) {
@@ -44,7 +43,7 @@ void PushToListInMap(HashMap* ListMap, char* key, void* data){
     }
  }
 
-long complexHash( void * key, long capacity) {
+long Hash( void * key, long capacity) {
     unsigned long hash = 0;
      char * ptr;
     for (ptr = key; *ptr != '\0'; ptr++) {
@@ -68,7 +67,7 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-  long keyhash = map->hash(key,map->capacity);
+  long keyhash = Hash(key,map->capacity);
   while(1){
   if(map->buckets[keyhash]==NULL || map->buckets[keyhash]->key==NULL){
     Pair* newpair = createPair(key,value);
@@ -98,17 +97,11 @@ void enlarge(HashMap * map) {
 
 
 
-HashMap * createMap(long capacity, int hash_style) {
+HashMap * createMap(long capacity) {
   HashMap * map = (HashMap *)malloc(sizeof(HashMap));
   map->buckets = (Pair **) calloc (capacity,sizeof(Pair *));
   map->capacity = capacity;
   map->current = -1;
-  if (hash_style ==1){
-    map->hash = simpleHash;
-  }
-  else{
-    map->hash=complexHash;
-  }
     return map;
 }
 
@@ -122,7 +115,7 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-    long idx = map->hash(key, map->capacity);
+    long idx = Hash(key, map->capacity);
     while (map->buckets[idx] != NULL && is_equal(map->buckets[idx]->key, key) == 0) 
         idx = (idx + 1) % map->capacity;
     

@@ -7,15 +7,7 @@
 
 #define MAXCHAR 1023
 
-typedef struct Propiedad{
-    char id[20];
-    char ciudad[80];
-    char direccion[80];
-    char tipo[80];
-    char capacidad[20];
-    char valor[20];
-    bool favorito;
-}Propiedad;
+typedef struct Propiedad Propiedad;
 
 Propiedad* CreatePropiedad(char* id, char* ciudad, char* direccion, char* tipo, char* capacidad, char* valor){
     Propiedad* new = (Propiedad*)malloc(sizeof(Propiedad));
@@ -96,16 +88,19 @@ void ReadPropiedades(List* IdsPropiedades,HashMap* Propiedades){
     }
 }
 void AddToMaps(List* Ids, HashMap* Propiedades, HashMap* XCiudad, HashMap* XTipo, HashMap* XCapacidad){
-    void* id = firstList(Ids);
-    while(id){
-        Pair* aux = searchMap(Propiedades,id);
+    Pair* aux = firstMap(Propiedades);
+    char cityKey[80];
+    char TipoKey[80];
+    char CapaKey[20];
+    while(aux){
         Propiedad* prop = aux->value;
-        char* cityKey = prop->ciudad;
-        PushToListInMap(XCiudad,cityKey,prop);
-        char* TipoKey = prop->tipo;
-        PushToListInMap(XTipo,TipoKey,prop);
-        char* CapaKey = prop->capacidad;
-        PushToListInMap(XCapacidad,CapaKey,prop);
+        strcpy(cityKey,prop->ciudad);
+        PushToListInMap(XCiudad,cityKey,aux);
+        strcpy(TipoKey,prop->tipo);
+        PushToListInMap(XTipo,TipoKey,aux);
+        strcpy(CapaKey,prop->capacidad);
+        PushToListInMap(XCapacidad,CapaKey,aux);
+        aux = nextMap(Propiedades);
     }
 }
 void MostrarPropiedad(Propiedad* prop){
