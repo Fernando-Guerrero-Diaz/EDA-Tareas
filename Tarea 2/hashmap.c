@@ -8,7 +8,7 @@
 
 typedef struct HashMap HashMap;
 
-
+typedef struct IdData IdData;
 struct HashMap {
     Pair ** buckets;
     long size; //cantidad de datos/pairs en la tabla
@@ -22,6 +22,14 @@ Pair * createPair(char * key,  void * value) {
     new->key = key;
     new->value = value;
     return new;
+}
+struct IdData{
+  char id[20];
+};
+
+IdData* createId(char* id){
+  IdData* new = (IdData*)malloc(sizeof(IdData));
+  strcpy(new->id,id);
 }
 void PushToListInMap(HashMap* ListMap, char* key, void* data){
     Pair* searchResult = searchMap(ListMap,key);
@@ -114,20 +122,15 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 Pair * searchMap(HashMap * map,  char * key) {   
-  long keyhash = map->hash(key,map->capacity);
-  int count=0;
-  while(1){
-    if (map->buckets[keyhash]==NULL) break;
-    if(map->buckets[keyhash] != NULL && is_equal(map->buckets[keyhash]->key,key)){
-      map->current= keyhash;
-      return map->buckets[keyhash];
-    }
-    keyhash++;
-    keyhash = keyhash%map->capacity;
-    count++;
-    if (count>map->capacity) break;}
-
-  return NULL;
+    long idx = map->hash(key, map->capacity);
+    while (map->buckets[idx] != NULL && is_equal(map->buckets[idx]->key, key) == 0) 
+        idx = (idx + 1) % map->capacity;
+    
+    if (map->buckets[idx] == NULL || map->buckets[idx]->value == NULL) return NULL;
+    
+    map->current = idx;
+    
+    return (void *)map->buckets[idx];
 }
 
 Pair * firstMap(HashMap * map) {

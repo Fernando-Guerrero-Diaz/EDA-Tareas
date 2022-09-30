@@ -70,12 +70,12 @@ void ReadPropiedades(List* IdsPropiedades,HashMap* Propiedades){
 
     FILE *fp = fopen ("propiedades.csv", "r");
     char linea[1024];
+    char id[20];
     char ciudad[80];
     char direccion[80];
     char tipo[80];
     char capacidad[20];
     char valor[20];
-    char id[20];
     char* dato;
   
     dato = fgets(linea, 1023, fp);
@@ -90,7 +90,8 @@ void ReadPropiedades(List* IdsPropiedades,HashMap* Propiedades){
         Propiedad* new = CreatePropiedad(id,ciudad,direccion,tipo,capacidad,valor);
         MostrarPropiedad(new);
         insertMap(Propiedades, id, new);
-        pushBack(IdsPropiedades,id);
+        IdData* newId = createId(id);
+        pushBack(IdsPropiedades,newId);
 
     }
 }

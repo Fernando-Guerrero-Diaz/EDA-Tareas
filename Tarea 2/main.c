@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include "source.h"
 
+struct IdData{
+  char id[20];
+};
+
 int main(){
     HashMap* Propiedades = createMap(40,0);
     List* Ids= createList();
@@ -12,13 +16,27 @@ int main(){
     HashMap* PropiedadesXCiudad = createMap(20,0);
     HashMap* PropiedadesXTipo = createMap(20,0);
     HashMap* PropiedadesXCapacidad = createMap(20,0);
-    //AddToMaps(Ids,Propiedades,PropiedadesXCiudad,PropiedadesXTipo,PropiedadesXCapacidad);
+    AddToMaps(Ids,Propiedades,PropiedadesXCiudad,PropiedadesXTipo,PropiedadesXCapacidad);
 
-    char aux[20];
-    strcpy(aux,"1");
+    IdData* aux = firstList(Ids);
+    printf("%s\n",aux->id);
+    aux= nextList(Ids);
+    printf("%s\n",aux->id);
     
-    Pair* pair = searchMap(Propiedades,aux);
+    Pair* pair = searchMap(Propiedades,aux->id);
+    if (pair){
     Propiedad* prop = pair->value;
+    MostrarPropiedad(prop);
+    }
+    else printf("SearchMap returned NULL\n");
+
+    pair = firstMap(Propiedades);
+    if (pair){
+    Propiedad* prop = pair->value;
+    MostrarPropiedad(prop);
+    }
+    else printf("FirstMap returned NULL\n");
+    /*
     MostrarPropiedad(prop);
     /*
     aux = nextList(Ids);
