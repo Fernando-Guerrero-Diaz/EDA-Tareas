@@ -1,0 +1,7 @@
+Equipo: NonBinary Tree
+Integrantes: Fernando Guerrero, Valentina Vidal, Hector Aguilera
+
+para compilar:
+-escribir en terminal: gcc main.c list.c source.c hashmap.c -o tarea2
+
+Lamentablemente no pudimos solucionar el problema con la búsqueda en mapas
