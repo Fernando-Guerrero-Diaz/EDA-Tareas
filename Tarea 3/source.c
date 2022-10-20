@@ -8,16 +8,16 @@
 typedef struct Videojuego{
     char nombre[80];
     char fecha[15];
-    int valoracion;
-    int precio;
+    char valoracion[10];
+    char precio[20];
 }Videojuego;
 
-Videojuego* CreateVideojuego(char* nombre, char* fecha, int valoracion, int precio){
+Videojuego* CreateVideojuego(char* nombre, char* fecha, char* valoracion, char* precio){
     Videojuego* new = (Videojuego *)malloc(sizeof(Videojuego));
     strcpy(new->nombre,nombre);
     strcpy(new->fecha,fecha);
-    new->valoracion = valoracion;
-    new->precio = precio;
+    strcpy(new->valoracion,valoracion);
+    strcpy(new->precio,precio);
     return new;
 }
 
@@ -54,32 +54,66 @@ const char *get_csv_field (char * tmp, int k) {
     return NULL;
 }
 
-void LecturaInicial(TreeMap* mapaVideojuegos){
+void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio){
 
     FILE *fp = fopen("Videojuegos.csv","r");
     char linea[1024];
     char nombre[80];
     char fecha[20];
-    int valoracion;
-    int precio;
+    char valoracion[10];
+    char precio[20];
     char* dato;
-  
+    char buffer[80];
     dato = fgets(linea, 1023, fp);
     while (fgets(linea, MAXCHAR, fp) != NULL)
     {
         strcpy(nombre,(char *)get_csv_field(linea, 0));
         strcpy(fecha, get_csv_field(linea, 1));
-        valoracion = atoi(get_csv_field(linea, 2));
-        precio = atoi(get_csv_field(linea, 3));
+        strcpy(valoracion, get_csv_field(linea, 2));
+        strcpy(precio, get_csv_field(linea, 3));
+        
         Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
-        insertTreeMap(mapaVideojuegos,new->nombre,new);
-        ShowVideojuego(new);
+        insertTreeMap(VJnombre,new->nombre,new);
+        insertTreeMap(VJprecio,new->precio,new);
     }
 }
 
 void ShowVideojuego(Videojuego* vg){
     printf("%s\n",vg->nombre);
     printf("%s\n",vg->fecha);
-    printf("%d\n",vg->valoracion);
-    printf("%d\n",vg->precio);
+    printf("%s\n",vg->valoracion);
+    printf("%s\n",vg->precio);
+}
+
+void ShowPrecio(TreeMap* VJprecio, bool MenorAMayor){
+    if(MenorAMayor){
+    Pair* x = firstTreeMap(VJprecio);
+    printf("Mostrando Videojuegos por precio...\n");
+    while(x){
+        Videojuego* vg = x->value;
+        if(vg){
+            ShowVideojuego(vg);
+            x = nextTreeMap(VJprecio);
+        }
+        else break;
+    }
+    }
+    else{
+        Pair* x = lastTreeMap(VJprecio);
+    printf("Mostrando Videojuegos por precio...\n");
+    while(x){
+        Videojuego* vg = x->value;
+        if(vg){
+            ShowVideojuego(vg);
+            x = prevTreeMap(VJprecio);
+            }
+        else break;
+        }
+    }
+}
+
+void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio,char* nombre, char* fecha, char* valoracion, char* precio){
+    Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
+    insertTreeMap(VJnombre,new->nombre,new);
+    insertTreeMap(VJprecio,new->precio,new);
 }

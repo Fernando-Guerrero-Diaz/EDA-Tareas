@@ -20,6 +20,12 @@ Pair * upperBound(TreeMap * tree, void* key);
 
 Pair * firstTreeMap(TreeMap * tree);
 
+Pair * lastTreeMap(TreeMap * tree);
+
 Pair * nextTreeMap(TreeMap * tree);
+
+Pair * prevTreeMap(TreeMap * tree);
+
+
 
 #endif /* TREEMAP_h */
