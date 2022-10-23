@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "treemap.h"
+#include "source.h"
 
 typedef struct TreeNode TreeNode;
 
@@ -249,4 +250,20 @@ Pair * prevTreeMap(TreeMap * tree) {
     if (aux == NULL) return NULL;
     
     return aux->pair;
+}
+
+void eraseTreeMapTarget(TreeMap * tree, void* key, Pair* target){
+    if (tree == NULL || tree->root == NULL) return;
+
+    if (searchTreeMap(tree, key) == NULL) return;
+    TreeNode* node = tree->current;
+    while(node && is_equal(tree,key,node->pair->key)){
+    if (VideojuegoCorrecto(target,node->pair)){
+        removeNode(tree, node);
+        break;}
+    else {
+        nextTreeMap(tree);
+        node = tree->current;
+    }
+    }
 }

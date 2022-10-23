@@ -15,9 +15,10 @@ int lower_than_char(void* key1, void* key2){
     char* k2 = (char*)key2;
 
     int x = 0;
-    while (k1[x]==k2[x]) x++;
+    while (k1[x+1] != 0 && k1[x]==k2[x]) x++;
     return k1[x]<k2[x];
 }
+
 
 int main(){
     TreeMap* VJnombre = createTreeMap(lower_than_char);
@@ -25,9 +26,10 @@ int main(){
     TreeMap* VJvaloracion = createTreeMap(lower_than_int);
     LecturaInicial(VJnombre,VJprecio,VJvaloracion);
 
+
     char Input[80];
   while (true){
-    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion Exit\n");
+    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion EliminarJuego Exit\n");
     gets(Input);
     fflush(stdin);
         if (strcmp(Input, "MostrarPorPrecio")==0){
@@ -48,6 +50,14 @@ int main(){
       gets(Input);
       fflush(stdin);
       FiltrarValoracion(VJvaloracion,Input);
+      printf("\n");
+      continue;
+        }
+        if (strcmp(Input, "EliminarJuego")==0){
+      printf("Ingrese nombre de juego a eliminar: ");
+      gets(Input);
+      fflush(stdin);
+      EliminarVideojuego(VJnombre,VJprecio,VJvaloracion,Input);
       printf("\n");
       continue;
         }

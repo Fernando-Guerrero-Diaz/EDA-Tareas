@@ -26,6 +26,7 @@ Pair * nextTreeMap(TreeMap * tree);
 
 Pair * prevTreeMap(TreeMap * tree);
 
+void eraseTreeMapTarget(TreeMap * tree, void* key, Pair* target);
 
 
 #endif /* TREEMAP_h */

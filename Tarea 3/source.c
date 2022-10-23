@@ -132,3 +132,26 @@ void FiltrarValoracion(TreeMap* VJvaloracion, char* valoracion){
     }
 
 }
+
+bool VideojuegoCorrecto(Pair* par1, Pair* par2){
+    Videojuego* vg1 = par1->value;
+    Videojuego* vg2 = par2->value;
+    if (vg1 && vg2){
+        if (strcmp(vg1->nombre,vg2->nombre)== 0){
+            return true;
+        }
+    }
+    return false;
+}
+
+void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre){
+    Pair* target = searchTreeMap(VJnombre,nombre);
+    if(target==NULL){
+        printf("Videojuego no encontrado.\n");
+         return;}
+    Videojuego* vg = target->value;
+    eraseTreeMapTarget(VJprecio,vg->precio,target);
+    eraseTreeMapTarget(VJvaloracion,vg->valoracion,target);
+    eraseTreeMap(VJnombre,nombre);
+    printf("%s eliminado.\n", nombre);
+}
