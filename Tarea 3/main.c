@@ -22,11 +22,12 @@ int lower_than_char(void* key1, void* key2){
 int main(){
     TreeMap* VJnombre = createTreeMap(lower_than_char);
     TreeMap* VJprecio = createTreeMap(lower_than_int);
-    LecturaInicial(VJnombre,VJprecio);
+    TreeMap* VJvaloracion = createTreeMap(lower_than_int);
+    LecturaInicial(VJnombre,VJprecio,VJvaloracion);
 
     char Input[80];
   while (true){
-    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego Exit\n");
+    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion Exit\n");
     gets(Input);
     fflush(stdin);
         if (strcmp(Input, "MostrarPorPrecio")==0){
@@ -39,6 +40,14 @@ int main(){
        else{
         ShowPrecio(VJprecio,false);
        }
+      printf("\n");
+      continue;
+        }
+      if (strcmp(Input, "FiltrarValoracion")==0){
+      printf("Ingrese valoracion: ");
+      gets(Input);
+      fflush(stdin);
+      FiltrarValoracion(VJvaloracion,Input);
       printf("\n");
       continue;
         }
@@ -59,7 +68,7 @@ int main(){
       printf("Ingrese precio del juego:\n");
       gets(precio);
       fflush(stdin);
-      AgregarVideojuego(VJnombre,VJprecio,nombre,fecha,valoracion,precio);
+      AgregarVideojuego(VJnombre,VJprecio,VJvaloracion,nombre,fecha,valoracion,precio);
       continue;
       }
     if (strcmp(Input, "Exit")==0){

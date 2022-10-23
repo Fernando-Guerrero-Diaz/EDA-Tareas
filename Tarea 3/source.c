@@ -54,7 +54,7 @@ const char *get_csv_field (char * tmp, int k) {
     return NULL;
 }
 
-void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio){
+void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio, TreeMap* VJvaloracion){
 
     FILE *fp = fopen("Videojuegos.csv","r");
     char linea[1024];
@@ -75,6 +75,7 @@ void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio){
         Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
         insertTreeMap(VJnombre,new->nombre,new);
         insertTreeMap(VJprecio,new->precio,new);
+        insertTreeMap(VJvaloracion,new->valoracion,new);
     }
 }
 
@@ -88,7 +89,7 @@ void ShowVideojuego(Videojuego* vg){
 void ShowPrecio(TreeMap* VJprecio, bool MenorAMayor){
     if(MenorAMayor){
     Pair* x = firstTreeMap(VJprecio);
-    printf("Mostrando Videojuegos por precio...\n");
+    printf("Mostrando Videojuegos de menor a mayor precio...\n");
     while(x){
         Videojuego* vg = x->value;
         if(vg){
@@ -100,7 +101,7 @@ void ShowPrecio(TreeMap* VJprecio, bool MenorAMayor){
     }
     else{
         Pair* x = lastTreeMap(VJprecio);
-    printf("Mostrando Videojuegos por precio...\n");
+    printf("Mostrando Videojuegos de mayor a menor precio...\n");
     while(x){
         Videojuego* vg = x->value;
         if(vg){
@@ -112,8 +113,22 @@ void ShowPrecio(TreeMap* VJprecio, bool MenorAMayor){
     }
 }
 
-void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio,char* nombre, char* fecha, char* valoracion, char* precio){
+void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion,char* nombre, char* fecha, char* valoracion, char* precio){
     Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
     insertTreeMap(VJnombre,new->nombre,new);
     insertTreeMap(VJprecio,new->precio,new);
+    insertTreeMap(VJprecio,new->valoracion,new);
+}
+
+void FiltrarValoracion(TreeMap* VJvaloracion, char* valoracion){
+    Pair* x = upperBound(VJvaloracion,valoracion);
+    while(x){
+        Videojuego* vg = x->value;
+        if(vg){
+            ShowVideojuego(vg);
+            x = nextTreeMap(VJvaloracion);
+        }
+        else break;
+    }
+
 }
