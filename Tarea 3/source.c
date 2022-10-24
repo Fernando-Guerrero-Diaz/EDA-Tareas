@@ -155,3 +155,15 @@ void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloraci
     eraseTreeMap(VJnombre,nombre);
     printf("%s eliminado.\n", nombre);
 }
+
+void ExportarVideojuegos(char* filename, TreeMap* VJnombre){
+    FILE *fpt; fpt = fopen(filename, "w+");
+    fprintf(fpt,"Nombre,año de salida,valoracion,precio\n");
+    Pair* par = firstTreeMap(VJnombre);
+    while(par){
+        Videojuego* vg = par->value;
+        fprintf(fpt,"%s,%s,%s,%s\n",vg->nombre,vg->fecha,vg->valoracion,vg->precio);
+        par = nextTreeMap(VJnombre);
+    }
+    fclose(fpt);
+}

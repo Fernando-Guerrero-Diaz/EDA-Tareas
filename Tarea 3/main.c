@@ -29,7 +29,7 @@ int main(){
 
     char Input[80];
   while (true){
-    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion EliminarJuego Exit\n");
+    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion ExportarVideojuegos EliminarJuego Exit\n");
     gets(Input);
     fflush(stdin);
         if (strcmp(Input, "MostrarPorPrecio")==0){
@@ -58,6 +58,17 @@ int main(){
       gets(Input);
       fflush(stdin);
       EliminarVideojuego(VJnombre,VJprecio,VJvaloracion,Input);
+      printf("\n");
+      continue;
+        }
+
+        if (strcmp(Input, "ExportarVideojuegos")==0){
+      printf("Ingrese nombre de archivo destino (sin .csv)\n");
+      gets(Input);
+      fflush(stdin);
+      strcat(Input,".csv");
+      printf("Exportando a %s...\n",Input);
+      ExportarVideojuegos(Input, VJnombre);
       printf("\n");
       continue;
         }

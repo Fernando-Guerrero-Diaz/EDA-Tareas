@@ -13,5 +13,6 @@ void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracio
 void FiltrarValoracion(TreeMap* VJvaloracion, char* valoracion);
 bool VideojuegoCorrecto(Pair* par1, Pair* par2);
 void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre);
+void ExportarVideojuegos(char* filename, TreeMap* VJnombre);
 
 #endif
