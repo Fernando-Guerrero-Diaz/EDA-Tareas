@@ -54,9 +54,15 @@ const char *get_csv_field (char * tmp, int k) {
     return NULL;
 }
 
-void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio, TreeMap* VJvaloracion){
+void LecturaVideojuegos(TreeMap* VJnombre, TreeMap* VJfecha, TreeMap* VJprecio, TreeMap* VJvaloracion){
+    char Input[80];
+    printf("Ingrese nombre de archivo origen (sin .csv)\n");
+    gets(Input);
+    fflush(stdin);
+    strcat(Input,".csv");
+    printf("Importando de %s...\n",Input);
 
-    FILE *fp = fopen("Videojuegos.csv","r");
+    FILE *fp = fopen(Input,"r");
     char linea[1024];
     char nombre[80];
     char fecha[20];
@@ -73,7 +79,8 @@ void LecturaInicial(TreeMap* VJnombre, TreeMap* VJprecio, TreeMap* VJvaloracion)
         strcpy(precio, get_csv_field(linea, 3));
         
         Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
-        insertTreeMap(VJnombre,new->nombre,new);
+        insertTreeMap(VJnombre,new->nombre,new);        
+        insertTreeMap(VJfecha,new->fecha,new);
         insertTreeMap(VJprecio,new->precio,new);
         insertTreeMap(VJvaloracion,new->valoracion,new);
     }
@@ -123,7 +130,7 @@ void ShowPrecio(TreeMap* VJprecio){
     }
 }
 
-void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion){
+void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJfecha, TreeMap* VJprecio, TreeMap* VJvaloracion){
       printf("Ingrese nombre de juego: \n");
       char nombre[80];
       gets(nombre);
@@ -142,6 +149,7 @@ void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracio
       fflush(stdin);
     Videojuego* new = CreateVideojuego(nombre,fecha,valoracion,precio);
     insertTreeMap(VJnombre,new->nombre,new);
+    insertTreeMap(VJfecha,new->fecha,new);
     insertTreeMap(VJprecio,new->precio,new);
     insertTreeMap(VJprecio,new->valoracion,new);
 }
@@ -174,20 +182,27 @@ bool VideojuegoCorrecto(Pair* par1, Pair* par2){
     return false;
 }
 
-void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre){
+void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJfecha,TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre){
     Pair* target = searchTreeMap(VJnombre,nombre);
     if(target==NULL){
         //printf("Videojuego no encontrado.\n");
          return;}
     Videojuego* vg = target->value;
+    eraseTreeMapTarget(VJfecha,vg->fecha,target);
     eraseTreeMapTarget(VJprecio,vg->precio,target);
     eraseTreeMapTarget(VJvaloracion,vg->valoracion,target);
     eraseTreeMap(VJnombre,nombre);
     //printf("%s eliminado.\n", nombre);
 }
 
-void ExportarVideojuegos(char* filename, TreeMap* VJnombre){
-    FILE *fpt; fpt = fopen(filename, "w+");
+void ExportarVideojuegos(TreeMap* VJnombre){
+    char Input[80];
+    printf("Ingrese nombre de archivo destino (sin .csv)\n");
+    gets(Input);
+    fflush(stdin);
+    strcat(Input,".csv");
+    printf("Exportando a %s...\n",Input);
+    FILE *fpt; fpt = fopen(Input, "w+");
     fprintf(fpt,"Nombre,año de salida,valoracion,precio\n");
     Pair* par = firstTreeMap(VJnombre);
     while(par){
@@ -198,7 +213,11 @@ void ExportarVideojuegos(char* filename, TreeMap* VJnombre){
     fclose(fpt);
 }
 
-void JuegoDelAnno(TreeMap* VJfecha, char* anno){
+void JuegoDelAnno(TreeMap* VJfecha){
+    char anno[10];
+    printf("Ingrese anno: ");
+    gets(anno);
+    fflush(stdin);
     char start[15] = "01/01/";
     char end[15] = "32/12/";
     strcat(start,anno);
@@ -219,13 +238,18 @@ void JuegoDelAnno(TreeMap* VJfecha, char* anno){
         par = nextTreeMap(VJfecha);
     }
     if (goty){
+        printf("Juego del anno %s:\n", anno);
         ShowVideojuego(goty);
     }
-    else printf("No se ha encontrado un juego del año");
+    else printf("No se ha encontrado un juego del anno\n");
 
 }
 
-void BuscarVideojuego(TreeMap* VJnombre, TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre){
+void BuscarVideojuego(TreeMap* VJnombre, TreeMap* VJfecha,TreeMap* VJprecio, TreeMap* VJvaloracion){
+    char nombre[80];
+    printf("Ingrese nombre de juego a buscar: ");
+    gets(nombre);
+    fflush(stdin);
     Pair* par = searchTreeMap(VJnombre,nombre);
     char Input[80];
     if (par){
@@ -235,13 +259,13 @@ void BuscarVideojuego(TreeMap* VJnombre, TreeMap* VJprecio, TreeMap* VJvaloracio
         gets(Input);
         fflush(stdin);
        if (strcmp(Input, "s")==0){
-        EliminarVideojuego(VJnombre,VJprecio,VJvaloracion,nombre);
+        EliminarVideojuego(VJnombre,VJfecha,VJprecio,VJvaloracion,nombre);
         printf("Eliminar por completo? (s/n) \n");
         gets(Input);
         fflush(stdin);
             if (strcmp(Input, "n")==0){
                 printf("Modificando a %s...\n", nombre);
-                AgregarVideojuego(VJnombre,VJprecio,VJvaloracion);
+                AgregarVideojuego(VJnombre,VJfecha, VJprecio,VJvaloracion);
                 printf("Videojuego modificado.\n");
             }
             else printf("%s eliminado.\n", nombre);

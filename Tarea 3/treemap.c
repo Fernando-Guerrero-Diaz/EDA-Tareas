@@ -269,5 +269,5 @@ void eraseTreeMapTarget(TreeMap * tree, void* key, Pair* target){
 }
 
 int InBounds(TreeMap* tree, void* key, void* keybound){
-    return tree->lower_than(key,keybound);
+    return is_equal(tree, key,keybound);
 }
