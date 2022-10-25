@@ -29,19 +29,12 @@ int main(){
 
     char Input[80];
   while (true){
-    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion ExportarVideojuegos EliminarJuego Exit\n");
+    printf("Opciones de menu:\n MostrarPorPrecio AgregarJuego FiltrarValoracion ExportarVideojuegos BuscarJuego Exit\n");
     gets(Input);
     fflush(stdin);
         if (strcmp(Input, "MostrarPorPrecio")==0){
-        printf("De menor a mayor? (s / n): ");
-      gets(Input);
-      fflush(stdin);
-       if (strcmp(Input, "s")==0){
-        ShowPrecio(VJprecio,true);
-       }
-       else{
-        ShowPrecio(VJprecio,false);
-       }
+
+        ShowPrecio(VJprecio);
       printf("\n");
       continue;
         }
@@ -53,11 +46,11 @@ int main(){
       printf("\n");
       continue;
         }
-        if (strcmp(Input, "EliminarJuego")==0){
-      printf("Ingrese nombre de juego a eliminar: ");
+        if (strcmp(Input, "BuscarJuego")==0){
+      printf("Ingrese nombre de juego a buscar: ");
       gets(Input);
       fflush(stdin);
-      EliminarVideojuego(VJnombre,VJprecio,VJvaloracion,Input);
+      BuscarVideojuego(VJnombre,VJprecio,VJvaloracion,Input);
       printf("\n");
       continue;
         }
@@ -73,23 +66,8 @@ int main(){
       continue;
         }
         if (strcmp(Input, "AgregarJuego")==0){
-      printf("Ingrese nombre de juego: ");
-      char nombre[80];
-      gets(nombre);
-      fflush(stdin);
-      printf("Ingrese fecha de lanzamiento:\n");
-      char fecha[30];
-      gets(fecha);
-      fflush(stdin);
-      char valoracion[10];
-      printf("Ingrese valoracion del juego:\n");
-      gets(valoracion);
-      fflush(stdin);
-    char precio[20];
-      printf("Ingrese precio del juego:\n");
-      gets(precio);
-      fflush(stdin);
-      AgregarVideojuego(VJnombre,VJprecio,VJvaloracion,nombre,fecha,valoracion,precio);
+
+      AgregarVideojuego(VJnombre,VJprecio,VJvaloracion);
       continue;
       }
     if (strcmp(Input, "Exit")==0){
