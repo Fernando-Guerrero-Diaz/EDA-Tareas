@@ -39,10 +39,7 @@ int main(){
       continue;
         }
       if (strcmp(Input, "FiltrarValoracion")==0){
-      printf("Ingrese valoracion: ");
-      gets(Input);
-      fflush(stdin);
-      FiltrarValoracion(VJvaloracion,Input);
+      FiltrarValoracion(VJvaloracion);
       printf("\n");
       continue;
         }

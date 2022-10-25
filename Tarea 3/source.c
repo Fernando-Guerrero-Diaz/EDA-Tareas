@@ -146,7 +146,11 @@ void AgregarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracio
     insertTreeMap(VJprecio,new->valoracion,new);
 }
 
-void FiltrarValoracion(TreeMap* VJvaloracion, char* valoracion){
+void FiltrarValoracion(TreeMap* VJvaloracion){
+    char valoracion[10];
+    printf("Ingrese valoracion: ");
+    gets(valoracion);
+    fflush(stdin);
     Pair* x = upperBound(VJvaloracion,valoracion);
     while(x){
         Videojuego* vg = x->value;
