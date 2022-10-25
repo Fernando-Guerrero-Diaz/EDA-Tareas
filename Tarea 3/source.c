@@ -167,3 +167,30 @@ void ExportarVideojuegos(char* filename, TreeMap* VJnombre){
     }
     fclose(fpt);
 }
+
+void JuegoDelAnno(TreeMap* VJfecha, char* anno){
+    char start[15] = "01/01/";
+    char end[15] = "32/12/";
+    strcat(start,anno);
+    strcat(end,anno); 
+    Videojuego* goty = NULL;
+    Videojuego* aux;
+    Pair* par = upperBound(VJfecha,start);
+    while (par && InBounds(VJfecha,par->key,end)){
+        if (goty==NULL){
+            goty = par->value;
+        }
+        else{
+            aux = par->value;
+            if (atoi(aux->valoracion) >atoi(goty->valoracion)){
+                goty = aux;
+            }
+        }
+        par = nextTreeMap(VJfecha);
+    }
+    if (goty){
+        ShowVideojuego(goty);
+    }
+    else printf("No se ha encontrado un juego del año");
+
+}

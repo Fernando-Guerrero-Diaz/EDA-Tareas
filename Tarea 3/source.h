@@ -14,5 +14,6 @@ void FiltrarValoracion(TreeMap* VJvaloracion, char* valoracion);
 bool VideojuegoCorrecto(Pair* par1, Pair* par2);
 void EliminarVideojuego(TreeMap* VJnombre,TreeMap* VJprecio, TreeMap* VJvaloracion, char* nombre);
 void ExportarVideojuegos(char* filename, TreeMap* VJnombre);
+void JuegoDelAnno(TreeMap* VJfecha, char* anno);
 
 #endif

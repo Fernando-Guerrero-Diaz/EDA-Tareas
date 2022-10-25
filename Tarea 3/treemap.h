@@ -10,6 +10,8 @@ typedef struct Pair {
 
 TreeMap * createTreeMap(int (*lower_than_int) (void* key1, void* key2));
 
+int is_equal(TreeMap* tree, void* key1, void* key2);
+
 void insertTreeMap(TreeMap * tree, void* key, void * value);
 
 void eraseTreeMap(TreeMap * tree, void* key);
@@ -28,5 +30,6 @@ Pair * prevTreeMap(TreeMap * tree);
 
 void eraseTreeMapTarget(TreeMap * tree, void* key, Pair* target);
 
+int InBounds(TreeMap* tree, void* key, void* keybound);
 
 #endif /* TREEMAP_h */
